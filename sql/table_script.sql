@@ -13,23 +13,14 @@ CREATE TABLE public.ind_stock_dly_price (
 );
 
 
-CREATE TABLE public.dim_stock_list (
-	stock_id varchar(50) NOT NULL,
-	stock_name varchar(200) NULL,
-	date_of_listing date NULL,
-	series varchar(10) NULL,
-	face_value int8 NULL,
-	create_date TIMESTAMP NOT NULL DEFAULT NOW(),
-	update_date TIMESTAMP NULL,
-	PRIMARY KEY(stock_id)
-);
-
-CREATE TABLE public.dim_sector_stock_raw(
+CREATE TABLE public.dim_sector_stock_raw (
 	sector_id varchar(50) NOT NULL,
-	sub_sector varchar(200),
-	stock_name varchar(200),
-	create_date TIMESTAMP NOT NULL DEFAULT NOW(),
-	update_date TIMESTAMP NULL
+	sub_sector varchar(200) NOT NULL,
+	stock_id varchar(50) NULL,
+	stock_name varchar(200) NOT NULL,
+	create_date timestamp DEFAULT now() NOT NULL,
+	update_date timestamp NULL,
+	CONSTRAINT dim_sector_stock_raw_pkey PRIMARY KEY (sector_id, sub_sector, stock_name)
 );
 
 
