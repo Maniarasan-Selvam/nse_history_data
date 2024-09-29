@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, text
 from datetime import date
 
 default_start_date = '2000-01-01'
-end_date = str(date.today())
+end_date = '2020-01-01'
 
 symbol = 'RBLBANK'
 
@@ -67,7 +67,7 @@ def insert_dly_hist_postgres(stock_hist_data):
 
     # Prepare the SQL statement with named placeholders
     insert_stmt = text(f"""
-        INSERT INTO public.ind_stock_dly_price ({', '.join(columns_to_insert)})
+        INSERT INTO public.ind_stock_dly_price_2020 ({', '.join(columns_to_insert)})
         VALUES ({', '.join([f':{col}' for col in columns_to_insert])})
         ON CONFLICT (stock_date, stock_id) DO UPDATE SET
         open_price = EXCLUDED.open_price,
@@ -77,11 +77,11 @@ def insert_dly_hist_postgres(stock_hist_data):
         stock_volume = EXCLUDED.stock_volume,
         update_date = NOW()
        WHERE 
-            ind_stock_dly_price.open_price <> EXCLUDED.open_price OR
-            ind_stock_dly_price.high_price <> EXCLUDED.high_price OR
-            ind_stock_dly_price.low_price <> EXCLUDED.low_price OR
-            ind_stock_dly_price.close_price <> EXCLUDED.close_price OR
-            ind_stock_dly_price.stock_volume <> EXCLUDED.stock_volume;
+            ind_stock_dly_price_2020.open_price <> EXCLUDED.open_price OR
+            ind_stock_dly_price_2020.high_price <> EXCLUDED.high_price OR
+            ind_stock_dly_price_2020.low_price <> EXCLUDED.low_price OR
+            ind_stock_dly_price_2020.close_price <> EXCLUDED.close_price OR
+            ind_stock_dly_price_2020.stock_volume <> EXCLUDED.stock_volume;
     """)
 
     # Create a database connection

@@ -31,3 +31,24 @@ CREATE TABLE public.dim_sector_stock_raw(
 	create_date TIMESTAMP NOT NULL DEFAULT NOW(),
 	update_date TIMESTAMP NULL
 );
+
+
+
+CREATE TABLE public.dim_stock_list (
+	stock_id varchar(50) NOT NULL,
+	stock_name varchar(200) NULL,
+	date_of_listing date NULL,
+	series varchar(10) NULL,
+	face_value int8 NULL,
+	create_date timestamp DEFAULT now() NOT NULL,
+	update_date timestamp NULL,
+	CONSTRAINT dim_stock_list_pkey PRIMARY KEY (stock_id)
+);
+
+
+CREATE TABLE public.dim_sector_stock_temp (
+	sector_id varchar(50) NOT NULL,
+	sub_sector varchar(200) NULL,
+	stock_id varchar(50) NULL,
+	stock_name varchar(200) NULL
+);
